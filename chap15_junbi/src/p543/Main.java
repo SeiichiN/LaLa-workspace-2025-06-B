@@ -13,6 +13,15 @@ public class Main {
 		String str1 = new String(data1);
 		System.out.println(str1);
 		
+		String str1B = String.valueOf(data1);
+		System.out.println(str1B);
+		
+		String str2 = new String(data2);
+		System.out.println(str2);
+		
+		String str3 = new String(data3);
+		System.out.println(str3);
+		
 	}
 
 }
