@@ -11,14 +11,15 @@ public abstract class Character {
 	int mp;
 	String name;
 	char suffix;
-	Item[] items = new Item[2];
+	List<Item> items;
 	
 	public Character(String name, char suffix) {
 		this.name = name;
 		this.suffix = suffix;
 		this.hp = 100;
+		this.items = new ArrayList<>();
 	}
-
+	
 	public void setPosition(Board board) {
 		this.y = new Random().nextInt(board.ysize);
 		this.x = new Random().nextInt(board.xsize);
@@ -68,12 +69,12 @@ public abstract class Character {
 	
 	private void lookInventory() {
 		System.out.print(" 持ち物 ");
-		for (int i = 0; i < items.length; i++) {
+		for (int i = 0; i < items.size(); i++) {
 			System.out.print(" " + i + ":");
-			if (items[i] == null)
+			if (items.get(i) == null)
 				System.out.print("なし");
 			else
-				System.out.print(items[i]);
+				System.out.print(items.get(i));
 		}
 		System.out.println(" 9:今はどれも使わない");
 		char ch = Util.choice("どれを使いますか？ > ");
@@ -81,26 +82,20 @@ public abstract class Character {
 	}
 	
 	private void useItem(char ch) {
-		switch (ch) {
-		case '0' -> {
-			System.out.println(this.name + "は" + items[ch - '0'].name + "を使った");
-			if (items[0] instanceof Potion p) {
-				this.hp = Math.min(this.hp + p.recovHp, 100);
-				System.out.println(this.name + "のHPが" + this.hp + "になった");
-				items[0] = null;
-			}
+		int num = ch - '0';
+		System.out.println(this.name + "は" + items.get(num).name + "を使った");
+		if (items.get(num) instanceof Potion p) {
+			this.hp = Math.min(this.hp + p.recovHp, 100);
+			System.out.println(this.name + "のHPが" + this.hp + "になった");
+			items.remove(num);
 		}
-		case '1' -> {
-			System.out.println(this.name + "は" + items[ch - '0'].name + "を使った");
-			if (items[1] instanceof Ether e) {
-				this.mp = Math.min(this.mp + e.recovMp, 50);
-				System.out.println(this.name + "のMPが" + this.mp + "になった");
-				items[1] = null;
-			}
+		else if (items.get(num) instanceof Ether e) {
+			this.mp = Math.min(this.mp + e.recovMp, 50);
+			System.out.println(this.name + "のMPが" + this.mp + "になった");
+			items.remove(num);
 		}
-		case '9' -> {
+		else {
 			System.out.println("今はどれも使わない");
-		}
 		}
 	}
 	
@@ -113,19 +108,8 @@ public abstract class Character {
 		
 	}
 	
-	/**
-	 * itemsは配列なので、サイズを変更できない。
-	 * @param i
-	 *   items[0] ポーション
-	 *   items[1] エーテル
-	 */
 	public void take(Item i) {
 		System.out.println(this.name + "は" + i.name + "を拾い上げた");
-		if (i instanceof Potion p) {
-			this.items[0] = p;
-		} else if (i instanceof Ether e) {
-			this.items[1] = e;
-		}
-		
+		this.items.add(i);
 	}
 }

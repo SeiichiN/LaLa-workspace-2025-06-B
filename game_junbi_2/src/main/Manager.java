@@ -19,7 +19,19 @@ public class Manager {
 		}
 		
 	}
-	
+
+	/**
+	 * 現在の場所情報を得る。
+	 * この機能は Characterクラスに実装すべきかどうか
+	 * 検討したが、
+	 * ポーションやモンスターなどのインスタンスを保持
+	 * しているのは Managerクラスなので、
+	 * Managerクラスでチェックし、その結果Characterクラス
+	 * がポーションを取得する、あるいはモンスターと
+	 * 戦うを選択すれば、ポーションやモンスターなどの
+	 * インスタンスをCharacterクラスに渡すようにした
+	 * ほうが、自然な流れだといえる。
+	 */
 	private void checkHere() {
 		char ch = board.map[hero.y][hero.x];
 		switch (ch) {
@@ -35,6 +47,15 @@ public class Manager {
 			case 's' -> {
 				meetMonster(slime);
 			}
+		}
+	}
+	
+	private void checkItem(Item i) {
+		System.out.println(i.name + "が落ちていた");
+		char ch = Util.choice("どうする？ t:拾う n:拾わない > ");
+		if (ch == 't') {
+			hero.take(i);
+			board.map[i.y][i.x] = '.'; 
 		}
 	}
 	
@@ -54,15 +75,6 @@ public class Manager {
 		System.out.println("勇者は倒れてしまった。");
 		System.out.println("GAME OVER");
 		System.exit(0);
-	}
-	
-	private void checkItem(Item i) {
-		System.out.println(i.name + "が落ちていた");
-		char ch = Util.choice("どうする？ t:拾う n:拾わない > ");
-		if (ch == 't') {
-			hero.take(i);
-			board.map[i.y][i.x] = '.'; 
-		}
 	}
 	
 	private void setup() {
