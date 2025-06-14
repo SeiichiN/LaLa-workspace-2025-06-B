@@ -7,7 +7,7 @@ public class Manager {
 	Hero hero;
 	Potion potion;
 	Ether ether;
-	Item item;
+	// Item item;
 	
 	public void start() {
 		setup();
