@@ -35,7 +35,7 @@ public abstract class Character {
 			lookStatus();
 		}
 		case 'u' -> {
-			lookInventory();
+			lookItems();
 		}
 		}
 	}
@@ -67,7 +67,7 @@ public abstract class Character {
 	}
 	
 	
-	private void lookInventory() {
+	private void lookItems() {
 		System.out.print(" 持ち物 ");
 		for (int i = 0; i < items.size(); i++) {
 			System.out.print(" " + i + ":");
@@ -108,16 +108,12 @@ public abstract class Character {
 		
 	}
 	
-	public void take(Item i) {
-		System.out.println(this.name + "は" + i.name + "を拾い上げた");
-		this.items.add(i);
-	}
-
-	public boolean isTakeItem(Item i) {
+	public boolean takeItem(Item i) {
 		System.out.println(i.name + "が落ちていた");
 		char ch = Util.choice("拾う？ y:拾う n:拾わない > ");
 		if (ch == 'y') {
-			take(i);
+			System.out.println(this.name + "は" + i.name + "を拾い上げた");
+			this.items.add(i);
 			return true;
 		}
 		return false;

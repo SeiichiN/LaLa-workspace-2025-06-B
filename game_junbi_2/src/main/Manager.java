@@ -36,12 +36,12 @@ public class Manager {
 		char ch = board.map[hero.y][hero.x];
 		switch (ch) {
 			case 'p' -> {
-				if (hero.isTakeItem(potion)) {
+				if (hero.takeItem(potion)) {
 					updateMap(potion);
 				}
 			}
 			case 'e' -> {
-				if (hero.isTakeItem(ether)) {
+				if (hero.takeItem(ether)) {
 					updateMap(ether);
 				}
 			}
