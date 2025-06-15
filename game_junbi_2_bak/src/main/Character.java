@@ -112,14 +112,4 @@ public abstract class Character {
 		System.out.println(this.name + "は" + i.name + "を拾い上げた");
 		this.items.add(i);
 	}
-
-	public boolean isTakeItem(Item i) {
-		System.out.println(i.name + "が落ちていた");
-		char ch = Util.choice("拾う？ y:拾う n:拾わない > ");
-		if (ch == 'y') {
-			take(i);
-			return true;
-		}
-		return false;
-	}
 }

@@ -36,14 +36,10 @@ public class Manager {
 		char ch = board.map[hero.y][hero.x];
 		switch (ch) {
 			case 'p' -> {
-				if (hero.isTakeItem(potion)) {
-					updateMap(potion);
-				}
+				checkItem(potion);
 			}
 			case 'e' -> {
-				if (hero.isTakeItem(ether)) {
-					updateMap(ether);
-				}
+				checkItem(ether);
 			}
 			case 'g' -> {
 				meetMonster(goblin);
@@ -54,8 +50,13 @@ public class Manager {
 		}
 	}
 	
-	private void updateMap(Item i) {
-		board.map[i.y][i.x] = '.'; 
+	private void checkItem(Item i) {
+		System.out.println(i.name + "が落ちていた");
+		char ch = Util.choice("どうする？ t:拾う n:拾わない > ");
+		if (ch == 't') {
+			hero.take(i);
+			board.map[i.y][i.x] = '.'; 
+		}
 	}
 	
 	private void meetMonster(Monster m) {
