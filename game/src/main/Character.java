@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Character {
@@ -8,11 +10,13 @@ public abstract class Character {
 	int hp;
 	String name;
 	char suffix;
+	List<Item> itemList;
 	
 	public Character(String name, char suffix) {
 		this.name = name;
 		this.suffix = suffix;
 		this.hp = 100;
+		this.itemList = new ArrayList<>();
 	}
 
 	public void setPosition(Board board) {
@@ -28,8 +32,50 @@ public abstract class Character {
 		
 	}
 	
-	public void move(Board board) {
-		char ch = Util.choice("w↑ s↓ a← d→ > ");
+	public void selectAction(Board board) {
+		char ch = Util.choice("w↑ s↓ a← d→ u:使う i:情報 l:見る > ");
+		switch (ch) {
+		case 'u' -> {
+			useItem();
+		}
+		case 'w','s','a','d' -> {
+			move(ch, board);
+		}
+		}
+		
+	}
+	
+	private void useItem() {
+		if (itemList.size() == 0) {
+			System.out.println("まだ何も持ってません");
+			return;
+		}
+		String str = "どれを使いますか？ ";
+		for (int i = 0; i < itemList.size(); i++) {
+			str += " (" + i + ")" + itemList.get(i).name;
+		}
+		str += " (9)使わない > ";
+		char ch = Util.choice(str);
+		System.out.println(ch);
+		// 考え中
+	}
+	
+	/**
+	 * 拾いますか？ y:拾う n:拾わない
+	 * 自分の List<Item>にそれを加える
+	 * map[アイテムy][アイテムx] を '.' に変える
+	 */
+	public boolean takeItem(Item item) {
+		System.out.println(item.name + "が落ちている！");
+		char ch = Util.choice("拾いますか？ y:拾う n:拾わない > ");
+		if (ch == 'y') {
+			itemList.add(item);
+			return true;
+		}
+		return false;
+	}
+	
+	private void move(char ch, Board board) {
 		switch (ch) {
 		case 'w' -> {
 			y = Math.max(y-1, 0);
