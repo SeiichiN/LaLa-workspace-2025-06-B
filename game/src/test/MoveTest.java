@@ -11,7 +11,7 @@ public class MoveTest {
 		Hero h = new Hero();
 		h.setPosition(board);
 		while(true) {
-			h.move(board);
+			h.selectAction(board);
 			board.printMap(h);
 		}
 	}
