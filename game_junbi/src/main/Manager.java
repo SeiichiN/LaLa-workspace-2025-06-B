@@ -4,9 +4,10 @@ public class Manager {
 	Board board;
 	Goblin goblin;
 	Slime slime;
-	Hero hero;
+	// Hero hero;
 	Potion potion;
 	Ether ether;
+	Wizard hero;
 	
 	public void start() {
 		init();
@@ -31,9 +32,17 @@ public class Manager {
 		}
 		case 'g' -> {
 			System.out.println("ゴブリンが現れた");
+			BattleManager bm = new BattleManager();
+			bm.fight(hero, goblin);
+			if (goblin.hp <= 0) 
+				board.map[goblin.y][goblin.x] = '.';
 		}
 		case 's' -> {
 			System.out.println("スライムが現れた");
+			BattleManager bm = new BattleManager();
+			bm.fight(hero, slime);
+			if (slime.hp <= 0) 
+				board.map[slime.y][slime.x] = '.';
 		}
 		}
 	}
@@ -49,7 +58,9 @@ public class Manager {
 		potion.setPosition(board);
 		this.ether = new Ether();
 		ether.setPosition(board);
-		this.hero = new Hero();
+		// this.hero = new Hero();
+		// hero.setPosition(board);
+		this.hero = new Wizard();
 		hero.setPosition(board);
 	}
 }
