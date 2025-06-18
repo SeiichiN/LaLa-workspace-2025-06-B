@@ -47,6 +47,14 @@ public abstract class Character {
 		
 	}
 	
+	private boolean isValidNumber(char ch, int size) {
+		int num = ch - '0';
+		if (num >= 0 && num < size) {
+			return true;
+		}
+		return false;
+	}
+	
 	private void useItem() {
 		if (itemList.size() == 0) {
 			System.out.println("まだ何も持ってません");
