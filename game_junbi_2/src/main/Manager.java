@@ -1,5 +1,8 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Manager {
 	Board board;
 	Goblin goblin;
@@ -7,15 +10,18 @@ public class Manager {
 	Hero hero;
 	Potion potion;
 	Ether ether;
+	Wizard wizard;
+	List<Character> charList = new ArrayList<>();
 	// Item item;
 	
 	public void start() {
 		setup();
 		while (true) {
-			board.printMap(hero);
+			board.printMap(charList);
 			checkHere();
 			if (hero.hp <= 0) endGame();
 			hero.selectAction(board);
+			wizard.selectAction(board);
 		}
 		
 	}
@@ -85,10 +91,14 @@ public class Manager {
 		slime.setPosition(board);
 		hero = new Hero();
 		hero.setPosition(board);
+		charList.add(hero);
 		potion = new Potion();
 		potion.setPosition(board);
 		ether = new Ether();
 		ether.setPosition(board);
+		wizard = new Wizard();
+		wizard.setPosition(board);
+		charList.add(wizard);
 	}
 	
 }

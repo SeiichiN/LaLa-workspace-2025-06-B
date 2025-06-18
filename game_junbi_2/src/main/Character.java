@@ -17,6 +17,7 @@ public abstract class Character {
 		this.name = name;
 		this.suffix = suffix;
 		this.hp = 100;
+		this.mp = 50;
 		this.items = new ArrayList<>();
 	}
 	
@@ -26,7 +27,7 @@ public abstract class Character {
 	}
 	
 	public void selectAction(Board board) {
-		char ch = Util.choice("w:↑s:↓a:← d:→ i:情報 u:持ち物 l:見る > ");
+		char ch = Util.choice(this.name + " w:↑s:↓a:← d:→ i:情報 u:持ち物 l:見る > ");
 		switch (ch) {
 		case 'w', 's', 'a', 'd' -> {
 			move(ch, board);
