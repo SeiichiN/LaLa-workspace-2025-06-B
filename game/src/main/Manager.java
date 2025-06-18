@@ -31,9 +31,17 @@ public class Manager {
 		}
 		case 'g' -> {
 			System.out.println("ゴブリンが現れた");
+			BattleManager bm = new BattleManager();
+			bm.fight(hero, goblin);
+			if (goblin.hp <= 0) 
+				board.map[goblin.y][goblin.x] = '.';
 		}
 		case 's' -> {
 			System.out.println("スライムが現れた");
+			BattleManager bm = new BattleManager();
+			bm.fight(hero, slime);
+			if (slime.hp <= 0) 
+				board.map[slime.y][slime.x] = '.';
 		}
 		}
 	}

@@ -13,6 +13,7 @@ public abstract class Monster extends GameObject {
 	}
 	
 	public void attack(Character c) {
+		if (this.hp <= 0) return;
 		System.out.println(this.name + "の攻撃！");
 		int damage = new Random().nextInt(attackP);
 		c.hp -= damage;
