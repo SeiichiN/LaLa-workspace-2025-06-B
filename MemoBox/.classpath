@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/workspaces/MemoBox/MemoBox/libs"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/io-9.2.0.jar"/>
+	<classpathentry kind="lib" path="libs/kernel-9.2.0.jar"/>
+	<classpathentry kind="lib" path="libs/layout-9.2.0.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.19.0.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-core-2.19.0.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.19.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
