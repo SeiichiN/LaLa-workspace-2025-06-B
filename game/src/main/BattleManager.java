@@ -7,8 +7,8 @@ public class BattleManager {
 			System.out.println(m.name + ":HP" + m.hp);
 			
 			char ch = Util.choice("A:戦う Q:逃げる > ");
-			
 			if (ch == 'q') break;
+			System.out.println();
 			c.attack(m);
 			m.attack(c);
 		}

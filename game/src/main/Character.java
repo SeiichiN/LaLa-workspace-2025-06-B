@@ -8,6 +8,7 @@ public abstract class Character {
 	int y;
 	int x;
 	int hp;
+	int mp;
 	String name;
 	char suffix;
 	List<Item> itemList;
@@ -16,6 +17,7 @@ public abstract class Character {
 		this.name = name;
 		this.suffix = suffix;
 		this.hp = 100;
+		this.mp = 50;
 		this.itemList = new ArrayList<>();
 	}
 
@@ -41,23 +43,63 @@ public abstract class Character {
 		case 'w','s','a','d' -> {
 			move(ch, board);
 		}
+		case 'i' -> {
+			printInfo();
+		}
 		}
 		
 	}
 	
-	private void useItem() {
+	
+	private char selectItem() {
 		if (itemList.size() == 0) {
 			System.out.println("まだ何も持ってません");
-			return;
+			return ' ';
 		}
-		String str = "どれを使いますか？ ";
-		for (int i = 0; i < itemList.size(); i++) {
-			str += " (" + i + ")" + itemList.get(i).name;
+		char ch = ' ';
+		do {
+			String str = "どれを使いますか？ ";
+			for (int i = 0; i < itemList.size(); i++) {
+				str += " (" + i + ")" + itemList.get(i).name;
+			}
+			str += " (9)使わない > ";
+			ch = Util.choice(str);
+		} while (!isNum(ch) || !isValid(ch));
+		return ch;
+	}
+	
+	private boolean isValid(char ch) {
+		int n = ch - '0';
+		return n < itemList.size();
+	}
+	
+	private boolean isNum(char ch) {
+		if (ch >= '0' && ch <= '9') {
+			return true;
 		}
-		str += " (9)使わない > ";
-		char ch = Util.choice(str);
-		System.out.println(ch);
-		// 考え中
+		return false;
+	}
+	
+	private void useItem() {
+		char ch = selectItem();
+		int num = ch - '0';
+		if (itemList.get(num) instanceof Potion p) {
+			this.hp = Math.min(this.hp + p.recovHp, 100);
+			p.recovHp = 0;
+			System.out.println
+			  (this.name + "は" + p.name + "を使った");
+			System.out.println
+			  (this.name + "のHPが" + this.hp + "になった" );
+			itemList.remove(num);
+		} else if (itemList.get(num) instanceof Ether e) {
+			this.mp = Math.min(this.mp + e.recovMp, 50);
+			e.recovMp = 50;
+			System.out.println
+			  (this.name + "は" + e.name + "を使った");
+			System.out.println
+			  (this.name + "のMPが" + this.mp + "になった" );
+			itemList.remove(num);
+		}
 	}
 	
 	/**
@@ -75,6 +117,15 @@ public abstract class Character {
 		return false;
 	}
 	
+	private void printInfo() {
+		System.out.print("HP:" + hp + " MP:" + mp);
+		System.out.print(" 持ち物 ");
+		for (Item i : itemList) {
+			System.out.print(i.name + " ");
+		}
+		System.out.println();
+	}
+
 	private void move(char ch, Board board) {
 		switch (ch) {
 		case 'w' -> {
