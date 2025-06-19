@@ -97,7 +97,7 @@ public class Manager {
 		ether = new Ether();
 		ether.setPosition(board);
 		wizard = new Wizard();
-		wizard.setPosition(board);
+		wizard.setPosition(hero);
 		charList.add(wizard);
 	}
 	

@@ -4,9 +4,10 @@ public class Manager {
 	Board board;
 	Goblin goblin;
 	Slime slime;
-	Hero hero;
+	// Hero hero;
 	Potion potion;
 	Ether ether;
+	Wizard hero;
 	
 	public void start() {
 		init();
@@ -57,7 +58,7 @@ public class Manager {
 		potion.setPosition(board);
 		this.ether = new Ether();
 		ether.setPosition(board);
-		this.hero = new Hero();
+		this.hero = new Wizard();
 		hero.setPosition(board);
 	}
 }

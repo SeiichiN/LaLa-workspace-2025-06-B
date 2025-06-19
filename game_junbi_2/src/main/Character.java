@@ -26,6 +26,11 @@ public abstract class Character {
 		this.x = new Random().nextInt(board.xsize);
 	}
 	
+	public void setPosition(Character c) {
+		this.y = c.y;
+		this.x = c.x;
+	}
+	
 	public void selectAction(Board board) {
 		char ch = Util.choice(this.name + " w:↑s:↓a:← d:→ i:情報 u:持ち物 l:見る > ");
 		switch (ch) {
